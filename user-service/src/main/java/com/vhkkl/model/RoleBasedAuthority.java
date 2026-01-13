@@ -1,5 +1,6 @@
 package com.vhkkl.model;
 
+
 public enum RoleBasedAuthority {
 
 	ROLE_ADMIN("ADMIN"),

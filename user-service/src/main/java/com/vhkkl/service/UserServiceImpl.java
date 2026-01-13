@@ -18,9 +18,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	@Override
-	public UserDto findById(UserDto userDto) {
+	public UserDto save(UserDto userDto) {
 		User user=userMapper.toEntity(userDto);
 		
 		Credential credential=user.getCredential();
@@ -30,16 +30,15 @@ public class UserServiceImpl implements UserService {
 		User dbUser=userRepository.save(user);
 		return userMapper.toDto(dbUser);
 	}
-
+	
 	@Override
-	public UserDto save(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto findById(Integer userId) {
+          return userRepository.findById(userId).map(userMapper::toDto) 
+        		  .orElseThrow(()->new RuntimeException("User does not exists")); // java 8 method of exception handling
 	}
 
 	@Override
-	public UserDto update(Integer userId, UserDto user) {
-		// TODO Auto-generated method stub
+	public UserDto update(Integer userId, UserDto userDto) {
 		return null;
 	}
 

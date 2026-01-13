@@ -4,7 +4,7 @@ import com.vhkkl.dto.UserDto;
 
 
 public interface UserService {
-     UserDto findById(UserDto userDto);
+     UserDto findById(Integer userId);
      UserDto save(UserDto userDto);
      UserDto update(Integer userId,UserDto user);
 }
