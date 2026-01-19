@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vhkkl.dto.CartRequestDto;
 import com.vhkkl.dto.CartResponseDto;
+import com.vhkkl.feignClient.ProductFeignClient;
 import com.vhkkl.model.CartItem;
 import com.vhkkl.repository.CartRepository;
 
@@ -20,6 +21,8 @@ public class CartServiceImpl implements CartService{
 	@Autowired
 	private CartRepository cartRepository;
 	
+	@Autowired
+	private ProductFeignClient productFeignClient;
 	public CartResponseDto mapToCart(CartItem dbcartItem)
 	{
 		CartResponseDto cartResponseDto=new CartResponseDto();
@@ -30,8 +33,13 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public CartResponseDto addToCart(CartRequestDto cartRequestDto) {
 		
-		// TODO call product ms and validate  the product
+		// TODO call product ms and validate  the  // also check the required quantity in stock 
+		
+		Boolean isExists=productFeignClient.isProductExists(cartRequestDto.getProductId());
+		if(!isExists)
+			throw new RuntimeException("Product doesn't exists");
 		// TODO call user ms and validate user
+		
 		
 		CartItem cart=new CartItem();
 		BeanUtils.copyProperties(cartRequestDto, cart);

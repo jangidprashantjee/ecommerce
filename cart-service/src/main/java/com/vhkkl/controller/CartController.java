@@ -47,7 +47,7 @@ public class CartController {
 	{
 		return cartService.updateQuantity(cartRequestDto);
 	}
-	//users/{userId}/cart/{productId} take as both pathvariable , generally userId is not passed 
+	//users/{userId}/cart/{productId} take as both path variable , generally userId is not passed 
 	@DeleteMapping("/remove/{productId}")
 	public void removeItemFromCart(@PathVariable Long productId, @RequestParam Long userId)
 	{
